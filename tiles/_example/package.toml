@@ -1,0 +1,5 @@
+name = "Example Tile Collection"
+author = "Markus Moenig"
+version = "0.1.0"
+description = "Example Treasury package structure for tiles and node groups."
+kind = "tile_collection"
