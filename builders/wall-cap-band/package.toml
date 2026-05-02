@@ -1,0 +1,8 @@
+name = "Wall Cap Band"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "sector"
+description = "Horizontal masonry bands near the top and bottom of a wall sector."
+aliases = ["wall", "cap", "band", "border", "masonry", "stone"]
+tags = ["wall", "masonry", "border"]

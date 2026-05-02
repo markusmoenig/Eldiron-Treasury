@@ -1,0 +1,8 @@
+name = "Wall Columns Masonry"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "sector"
+description = "Wall masonry relief with evenly spaced attached columns."
+aliases = ["wall", "columns", "masonry", "relief", "attached", "stone"]
+tags = ["wall", "columns", "masonry"]

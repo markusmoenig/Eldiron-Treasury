@@ -1,0 +1,41 @@
+name = "Wall Arcade";
+host = sector;
+
+param radius = 0.18;
+param spacing = 1.6;
+param base = 0.24;
+param cap = 0.24;
+param placement = structural;
+
+preview {
+    width = 8.0;
+    depth = 2.8;
+    height = 0.3;
+    surface = wall;
+}
+
+cut rect {
+    min = vec2(host.width * 0.06, host.depth * 0.04);
+    max = vec2(host.width * 0.94, host.depth);
+    mode = cut;
+};
+
+detail columns {
+    start = host.width * 0.06;
+    end = host.width * 0.94;
+    y = 0.0;
+    spacing = spacing;
+    height = host.depth;
+    radius = radius;
+    base = base;
+    cap = cap;
+    transition = 0.10;
+    segments = 18;
+    placement = placement;
+    material = COLUMN;
+    rect_material = BLOCK;
+    cyl_material = SHAFT;
+    tile_alias = stone;
+};
+
+output = [];

@@ -1,0 +1,44 @@
+name = "Wall Broken Arcade";
+host = sector;
+
+param radius = 0.17;
+param spacing = 1.55;
+param broken_chance = 0.35;
+param seed = 42.0;
+param placement = structural;
+
+preview {
+    width = 8.0;
+    depth = 2.8;
+    height = 0.3;
+    surface = wall;
+}
+
+cut rect {
+    min = vec2(host.width * 0.06, host.depth * 0.04);
+    max = vec2(host.width * 0.94, host.depth);
+    mode = cut;
+};
+
+detail columns {
+    start = host.width * 0.06;
+    end = host.width * 0.94;
+    y = 0.0;
+    spacing = spacing;
+    height = host.depth;
+    radius = radius;
+    base = 0.22;
+    cap = 0.20;
+    transition = 0.08;
+    broken_chance = broken_chance;
+    broken_min_height = 0.30;
+    seed = seed;
+    segments = 16;
+    placement = placement;
+    material = COLUMN;
+    rect_material = BLOCK;
+    cyl_material = SHAFT;
+    tile_alias = stone;
+};
+
+output = [];

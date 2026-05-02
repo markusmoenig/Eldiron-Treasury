@@ -1,0 +1,8 @@
+name = "Wall Broken Arcade"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "sector"
+description = "Structural arcade with seeded broken column variation."
+aliases = ["wall", "arcade", "broken", "ruins", "columns", "opening"]
+tags = ["wall", "arcade", "ruins"]

@@ -1,0 +1,8 @@
+name = "Surface Masonry"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "sector"
+description = "Running-bond masonry relief for floor or wall-like sector surfaces."
+aliases = ["surface", "floor", "wall", "masonry", "relief", "stone"]
+tags = ["surface", "masonry"]

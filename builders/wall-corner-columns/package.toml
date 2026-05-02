@@ -1,0 +1,8 @@
+name = "Wall Corner Columns"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "sector"
+description = "Attached columns at both ends of a wall sector."
+aliases = ["wall", "corner", "end", "columns", "attached", "stone"]
+tags = ["wall", "columns", "corner"]

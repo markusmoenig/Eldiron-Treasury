@@ -1,0 +1,8 @@
+name = "Wall Masonry Relief"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "sector"
+description = "Wall-oriented stone relief without columns."
+aliases = ["wall", "masonry", "relief", "stone", "brick"]
+tags = ["wall", "masonry"]

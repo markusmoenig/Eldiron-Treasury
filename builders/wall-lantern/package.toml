@@ -1,0 +1,8 @@
+name = "Wall Lantern"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "vertex_pair"
+description = "Wall-mounted lantern prop with frame, arm, glow core, and item slot."
+aliases = ["wall", "lantern", "light", "glow", "prop", "vertex"]
+tags = ["wall", "light", "prop"]

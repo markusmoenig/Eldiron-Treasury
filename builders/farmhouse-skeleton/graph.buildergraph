@@ -1,0 +1,138 @@
+name = "Farmhouse Skeleton";
+host = sector;
+
+param seed = 12.0;
+param wall_height = 1.6;
+param roof_height = 0.85;
+param plank_count = 18.0;
+param roof_plank_count = 16.0;
+param damage = 0.08;
+param overhang = 0.18;
+param roof_pitch = 1.1;
+
+preview {
+    width = 4.8;
+    depth = 3.2;
+    height = 2.6;
+}
+
+let north_wall = box {
+    attach = host.middle + host.out * (host.depth * -0.5 - 0.04);
+    size = vec3(host.width, wall_height, 0.08);
+    material = WALL;
+};
+
+let south_wall = box {
+    attach = host.middle + host.out * (host.depth * 0.5 + 0.04);
+    size = vec3(host.width, wall_height, 0.08);
+    material = WALL;
+};
+
+let west_wall = box {
+    attach = host.middle + host.along * (host.width * -0.5 - 0.04);
+    size = vec3(0.08, wall_height, host.depth);
+    material = WALL;
+};
+
+let east_wall = box {
+    attach = host.middle + host.along * (host.width * 0.5 + 0.04);
+    size = vec3(0.08, wall_height, host.depth);
+    material = WALL;
+};
+
+let north_planks = planks {
+    attach = host.middle + host.out * (host.depth * -0.5 - 0.095);
+    size = vec3(host.width * 0.96, wall_height * 0.92, 0.035);
+    count = plank_count;
+    direction = vertical;
+    jitter = 0.55;
+    missing_chance = damage;
+    seed = seed;
+    material = PLANK;
+};
+
+let south_planks = planks {
+    attach = host.middle + host.out * (host.depth * 0.5 + 0.095);
+    size = vec3(host.width * 0.96, wall_height * 0.92, 0.035);
+    count = plank_count;
+    direction = vertical;
+    jitter = 0.55;
+    missing_chance = damage;
+    seed = seed * 2.0;
+    material = PLANK;
+};
+
+let west_planks = planks {
+    attach = host.middle + host.along * (host.width * -0.5 - 0.095);
+    size = vec3(host.depth * 0.96, wall_height * 0.92, 0.035);
+    count = plank_count * 0.7;
+    direction = vertical;
+    jitter = 0.55;
+    missing_chance = damage;
+    seed = seed * 5.0;
+    rotate_y = 1.5708;
+    material = PLANK;
+};
+
+let east_planks = planks {
+    attach = host.middle + host.along * (host.width * 0.5 + 0.095);
+    size = vec3(host.depth * 0.96, wall_height * 0.92, 0.035);
+    count = plank_count * 0.7;
+    direction = vertical;
+    jitter = 0.55;
+    missing_chance = damage;
+    seed = seed * 6.0;
+    rotate_y = 1.5708;
+    material = PLANK;
+};
+
+let ridge = box {
+    attach = host.middle + host.up * (wall_height + roof_height);
+    size = vec3(host.width + overhang * 2.0, 0.10, 0.10);
+    material = BEAM;
+};
+
+let roof_north = box {
+    attach = host.middle + host.up * (wall_height) + host.out * (host.depth * -0.5 - overhang);
+    size = vec3(host.width + overhang * 2.0, host.depth * 0.5 + overhang + roof_height * 0.25, 0.08);
+    rotate_x = roof_pitch;
+    material = ROOF;
+};
+
+let roof_south = box {
+    attach = host.middle + host.up * (wall_height) + host.out * (host.depth * 0.5 + overhang);
+    size = vec3(host.width + overhang * 2.0, host.depth * 0.5 + overhang + roof_height * 0.25, 0.08);
+    rotate_x = roof_pitch * -1.0;
+    material = ROOF;
+};
+
+let roof_north_planks = planks {
+    attach = host.middle + host.up * (wall_height + 0.05) + host.out * (host.depth * -0.5 - overhang);
+    size = vec3(host.width + overhang * 2.0, host.depth * 0.5 + overhang + roof_height * 0.25, 0.035);
+    count = roof_plank_count;
+    direction = horizontal;
+    jitter = 0.45;
+    missing_chance = damage * 0.5;
+    seed = seed * 3.0;
+    rotate_x = roof_pitch;
+    material = ROOF_PLANK;
+};
+
+let roof_south_planks = planks {
+    attach = host.middle + host.up * (wall_height + 0.05) + host.out * (host.depth * 0.5 + overhang);
+    size = vec3(host.width + overhang * 2.0, host.depth * 0.5 + overhang + roof_height * 0.25, 0.035);
+    count = roof_plank_count;
+    direction = horizontal;
+    jitter = 0.45;
+    missing_chance = damage * 0.5;
+    seed = seed * 4.0;
+    rotate_x = roof_pitch * -1.0;
+    material = ROOF_PLANK;
+};
+
+slot material wall_mat = north_wall.center;
+slot material plank_mat = north_planks.center;
+slot material roof_mat = roof_north.center;
+slot material beam_mat = ridge.center;
+
+output = [north_wall, south_wall, west_wall, east_wall, north_planks, south_planks, west_planks, east_planks, ridge, roof_north, roof_south, roof_north_planks, roof_south_planks];

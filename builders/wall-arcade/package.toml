@@ -1,0 +1,8 @@
+name = "Wall Arcade"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "sector"
+description = "Clean structural arcade: cuts a wall sector and spans it with columns."
+aliases = ["wall", "arcade", "opening", "columns", "structural"]
+tags = ["wall", "arcade"]

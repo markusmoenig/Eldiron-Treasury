@@ -1,0 +1,8 @@
+name = "Wall Column Ruins"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "sector"
+description = "A cut wall opening with masonry relief and seeded broken columns."
+aliases = ["wall", "ruins", "broken", "columns", "masonry", "opening"]
+tags = ["wall", "columns", "ruins"]

@@ -1,0 +1,27 @@
+name = "Wall Cap Band";
+host = sector;
+
+preview {
+    width = 5.5;
+    depth = 2.6;
+    height = 0.3;
+    surface = wall;
+}
+
+detail rect {
+    min = vec2(0.0, host.depth * 0.02);
+    max = vec2(host.width, host.depth * 0.16);
+    offset = -0.05;
+    material = STONE;
+    tile_alias = stone;
+};
+
+detail rect {
+    min = vec2(0.0, host.depth * 0.84);
+    max = vec2(host.width, host.depth * 0.98);
+    offset = -0.05;
+    material = STONE;
+    tile_alias = stone;
+};
+
+output = [];

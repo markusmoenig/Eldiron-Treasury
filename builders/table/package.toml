@@ -1,0 +1,8 @@
+name = "Table"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "sector"
+description = "Simple sector-hosted table with top and legs."
+aliases = ["table", "furniture", "prop", "sector", "wood"]
+tags = ["furniture", "prop"]

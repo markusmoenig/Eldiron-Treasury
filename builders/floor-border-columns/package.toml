@@ -1,0 +1,8 @@
+name = "Floor Border Columns"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "sector"
+description = "Freestanding columns placed along a floor-sector border."
+aliases = ["floor", "border", "columns", "freestanding", "stone"]
+tags = ["floor", "columns"]

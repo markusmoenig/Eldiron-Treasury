@@ -1,0 +1,8 @@
+name = "Wall Torch"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "vertex_pair"
+description = "Wall-mounted torch prop with base, holder, torch shaft, and flame slot."
+aliases = ["wall", "torch", "light", "flame", "prop", "vertex"]
+tags = ["wall", "light", "prop"]

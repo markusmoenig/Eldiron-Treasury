@@ -1,0 +1,8 @@
+name = "Campfire"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "vertex_pair"
+description = "Small campfire prop with stones, crossed logs, embers, and flame slot."
+aliases = ["campfire", "fire", "flame", "light", "prop", "logs", "stone"]
+tags = ["light", "prop"]

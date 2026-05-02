@@ -1,0 +1,8 @@
+name = "Farmhouse Skeleton"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "sector"
+description = "Quick sector-hosted farmhouse shell with pitched roof and seeded plank variation."
+aliases = ["farmhouse", "farm", "house", "hut", "roof", "planks", "wood", "building"]
+tags = ["building", "farm", "wood"]

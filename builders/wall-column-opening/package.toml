@@ -1,0 +1,8 @@
+name = "Wall Column Opening"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "sector"
+description = "Cuts a wall sector open and replaces it with a row of structural columns."
+aliases = ["wall", "opening", "columns", "arcade", "cut", "structural"]
+tags = ["wall", "columns", "opening"]

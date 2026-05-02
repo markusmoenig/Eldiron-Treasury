@@ -1,0 +1,8 @@
+name = "Wall Linedef Masonry"
+author = "Eldiron"
+version = "0.1.0"
+kind = "builder_graph"
+target = "linedef"
+description = "Linedef-hosted wall masonry relief for decorating a selected wall side."
+aliases = ["wall", "linedef", "masonry", "relief", "stone", "brick"]
+tags = ["wall", "masonry", "linedef"]
