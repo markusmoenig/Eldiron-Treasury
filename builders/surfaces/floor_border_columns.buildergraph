@@ -1,0 +1,35 @@
+name = "Floor Border Columns";
+host = sector;
+
+param radius = 0.12;
+param spacing = 2.0;
+param height = 2.0;
+param base = 0.18;
+param cap = 0.18;
+param placement = freestanding;
+
+preview {
+    width = 6.0;
+    depth = 2.5;
+    height = 0.2;
+}
+
+detail columns {
+    start = host.width * 0.10;
+    end = host.width * 0.90;
+    y = host.depth * 0.18;
+    spacing = spacing;
+    height = height;
+    radius = radius;
+    base = base;
+    cap = cap;
+    transition = 0.08;
+    segments = 16;
+    placement = placement;
+    material = COLUMN;
+    rect_material = BLOCK;
+    cyl_material = SHAFT;
+    tile_alias = stone;
+};
+
+output = [];
