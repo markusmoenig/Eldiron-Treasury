@@ -6,9 +6,14 @@ param wall_height = 1.6;
 param roof_height = 0.85;
 param plank_count = 18.0;
 param roof_plank_count = 16.0;
-param damage = 0.08;
+param missing_plank_percent = 22.0;
+param plank_unevenness = 0.85;
 param overhang = 0.18;
 param roof_pitch = 1.1;
+param beam_size = 0.10;
+param wall_panel_height = wall_height - beam_size;
+param end_opening_width = 0.95;
+param end_panel_width = (host.depth - end_opening_width) * 0.5;
 
 preview {
     width = 4.8;
@@ -16,79 +21,211 @@ preview {
     height = 2.6;
 }
 
-let north_wall = box {
-    attach = host.middle + host.out * (host.depth * -0.5 - 0.04);
-    size = vec3(host.width, wall_height, 0.08);
-    material = WALL;
-};
-
-let south_wall = box {
-    attach = host.middle + host.out * (host.depth * 0.5 + 0.04);
-    size = vec3(host.width, wall_height, 0.08);
-    material = WALL;
-};
-
-let west_wall = box {
-    attach = host.middle + host.along * (host.width * -0.5 - 0.04);
-    size = vec3(0.08, wall_height, host.depth);
-    material = WALL;
-};
-
-let east_wall = box {
-    attach = host.middle + host.along * (host.width * 0.5 + 0.04);
-    size = vec3(0.08, wall_height, host.depth);
-    material = WALL;
-};
-
 let north_planks = planks {
-    attach = host.middle + host.out * (host.depth * -0.5 - 0.095);
-    size = vec3(host.width * 0.96, wall_height * 0.92, 0.035);
+    attach = host.middle + host.up * beam_size + host.out * (host.depth * -0.5 - 0.095);
+    size = vec3(host.width * 0.96, wall_panel_height, 0.035);
     count = plank_count;
     direction = vertical;
-    jitter = 0.55;
-    missing_chance = damage;
+    jitter = 0.0;
+    unevenness = plank_unevenness;
+    missing_chance = missing_plank_percent * 0.01;
     seed = seed;
     material = PLANK;
 };
 
 let south_planks = planks {
-    attach = host.middle + host.out * (host.depth * 0.5 + 0.095);
-    size = vec3(host.width * 0.96, wall_height * 0.92, 0.035);
+    attach = host.middle + host.up * beam_size + host.out * (host.depth * 0.5 + 0.095);
+    size = vec3(host.width * 0.96, wall_panel_height, 0.035);
     count = plank_count;
     direction = vertical;
-    jitter = 0.55;
-    missing_chance = damage;
+    jitter = 0.0;
+    unevenness = plank_unevenness;
+    missing_chance = missing_plank_percent * 0.01;
     seed = seed * 2.0;
     material = PLANK;
 };
 
-let west_planks = planks {
-    attach = host.middle + host.along * (host.width * -0.5 - 0.095);
-    size = vec3(host.depth * 0.96, wall_height * 0.92, 0.035);
-    count = plank_count * 0.7;
+let west_north_planks = planks {
+    attach = host.middle + host.up * beam_size + host.along * (host.width * -0.5 - 0.095) + host.out * (host.depth * -0.5 + end_panel_width * 0.5);
+    size = vec3(end_panel_width, wall_panel_height, 0.035);
+    count = plank_count * 0.35;
     direction = vertical;
-    jitter = 0.55;
-    missing_chance = damage;
+    jitter = 0.0;
+    unevenness = plank_unevenness;
+    missing_chance = missing_plank_percent * 0.01;
     seed = seed * 5.0;
     rotate_y = 1.5708;
     material = PLANK;
 };
 
-let east_planks = planks {
-    attach = host.middle + host.along * (host.width * 0.5 + 0.095);
-    size = vec3(host.depth * 0.96, wall_height * 0.92, 0.035);
-    count = plank_count * 0.7;
+let west_south_planks = planks {
+    attach = host.middle + host.up * beam_size + host.along * (host.width * -0.5 - 0.095) + host.out * (host.depth * 0.5 - end_panel_width * 0.5);
+    size = vec3(end_panel_width, wall_panel_height, 0.035);
+    count = plank_count * 0.35;
     direction = vertical;
-    jitter = 0.55;
-    missing_chance = damage;
+    jitter = 0.0;
+    unevenness = plank_unevenness;
+    missing_chance = missing_plank_percent * 0.01;
+    seed = seed * 5.5;
+    rotate_y = 1.5708;
+    material = PLANK;
+};
+
+let east_north_planks = planks {
+    attach = host.middle + host.up * beam_size + host.along * (host.width * 0.5 + 0.095) + host.out * (host.depth * -0.5 + end_panel_width * 0.5);
+    size = vec3(end_panel_width, wall_panel_height, 0.035);
+    count = plank_count * 0.35;
+    direction = vertical;
+    jitter = 0.0;
+    unevenness = plank_unevenness;
+    missing_chance = missing_plank_percent * 0.01;
     seed = seed * 6.0;
     rotate_y = 1.5708;
     material = PLANK;
 };
 
+let east_south_planks = planks {
+    attach = host.middle + host.up * beam_size + host.along * (host.width * 0.5 + 0.095) + host.out * (host.depth * 0.5 - end_panel_width * 0.5);
+    size = vec3(end_panel_width, wall_panel_height, 0.035);
+    count = plank_count * 0.35;
+    direction = vertical;
+    jitter = 0.0;
+    unevenness = plank_unevenness;
+    missing_chance = missing_plank_percent * 0.01;
+    seed = seed * 6.5;
+    rotate_y = 1.5708;
+    material = PLANK;
+};
+
+let post_nw = box {
+    attach = host.middle + host.along * (host.width * -0.5) + host.out * (host.depth * -0.5);
+    size = vec3(beam_size, wall_height, beam_size);
+    material = BEAM;
+};
+
+let post_ne = box {
+    attach = host.middle + host.along * (host.width * 0.5) + host.out * (host.depth * -0.5);
+    size = vec3(beam_size, wall_height, beam_size);
+    material = BEAM;
+};
+
+let post_sw = box {
+    attach = host.middle + host.along * (host.width * -0.5) + host.out * (host.depth * 0.5);
+    size = vec3(beam_size, wall_height, beam_size);
+    material = BEAM;
+};
+
+let post_w_door_n = box {
+    attach = host.middle + host.along * (host.width * -0.5) + host.out * (end_opening_width * -0.5);
+    size = vec3(beam_size, wall_height, beam_size);
+    material = BEAM;
+};
+
+let post_w_door_s = box {
+    attach = host.middle + host.along * (host.width * -0.5) + host.out * (end_opening_width * 0.5);
+    size = vec3(beam_size, wall_height, beam_size);
+    material = BEAM;
+};
+
+let post_se = box {
+    attach = host.middle + host.along * (host.width * 0.5) + host.out * (host.depth * 0.5);
+    size = vec3(beam_size, wall_height, beam_size);
+    material = BEAM;
+};
+
+let post_e_door_n = box {
+    attach = host.middle + host.along * (host.width * 0.5) + host.out * (end_opening_width * -0.5);
+    size = vec3(beam_size, wall_height, beam_size);
+    material = BEAM;
+};
+
+let post_e_door_s = box {
+    attach = host.middle + host.along * (host.width * 0.5) + host.out * (end_opening_width * 0.5);
+    size = vec3(beam_size, wall_height, beam_size);
+    material = BEAM;
+};
+
+let post_mid_n = box {
+    attach = host.middle + host.out * (host.depth * -0.5);
+    size = vec3(beam_size, wall_height, beam_size);
+    material = BEAM;
+};
+
+let post_mid_s = box {
+    attach = host.middle + host.out * (host.depth * 0.5);
+    size = vec3(beam_size, wall_height, beam_size);
+    material = BEAM;
+};
+
+let sill_n = box {
+    attach = host.middle + host.out * (host.depth * -0.5 - 0.02);
+    size = vec3(host.width + beam_size, beam_size, beam_size);
+    material = BEAM;
+};
+
+let sill_s = box {
+    attach = host.middle + host.out * (host.depth * 0.5 + 0.02);
+    size = vec3(host.width + beam_size, beam_size, beam_size);
+    material = BEAM;
+};
+
+let sill_w_n = box {
+    attach = host.middle + host.along * (host.width * -0.5 - 0.02) + host.out * (host.depth * -0.5 + end_panel_width * 0.5);
+    size = vec3(end_panel_width + beam_size, beam_size, beam_size);
+    rotate_y = 1.5708;
+    material = BEAM;
+};
+
+let sill_w_s = box {
+    attach = host.middle + host.along * (host.width * -0.5 - 0.02) + host.out * (host.depth * 0.5 - end_panel_width * 0.5);
+    size = vec3(end_panel_width + beam_size, beam_size, beam_size);
+    rotate_y = 1.5708;
+    material = BEAM;
+};
+
+let sill_e_n = box {
+    attach = host.middle + host.along * (host.width * 0.5 + 0.02) + host.out * (host.depth * -0.5 + end_panel_width * 0.5);
+    size = vec3(end_panel_width + beam_size, beam_size, beam_size);
+    rotate_y = 1.5708;
+    material = BEAM;
+};
+
+let sill_e_s = box {
+    attach = host.middle + host.along * (host.width * 0.5 + 0.02) + host.out * (host.depth * 0.5 - end_panel_width * 0.5);
+    size = vec3(end_panel_width + beam_size, beam_size, beam_size);
+    rotate_y = 1.5708;
+    material = BEAM;
+};
+
+let plate_n = box {
+    attach = host.middle + host.up * wall_height + host.out * (host.depth * -0.5 - 0.02);
+    size = vec3(host.width + beam_size, beam_size, beam_size);
+    material = BEAM;
+};
+
+let plate_s = box {
+    attach = host.middle + host.up * wall_height + host.out * (host.depth * 0.5 + 0.02);
+    size = vec3(host.width + beam_size, beam_size, beam_size);
+    material = BEAM;
+};
+
+let plate_w = box {
+    attach = host.middle + host.up * wall_height + host.along * (host.width * -0.5 - 0.02);
+    size = vec3(host.depth + beam_size, beam_size, beam_size);
+    rotate_y = 1.5708;
+    material = BEAM;
+};
+
+let plate_e = box {
+    attach = host.middle + host.up * wall_height + host.along * (host.width * 0.5 + 0.02);
+    size = vec3(host.depth + beam_size, beam_size, beam_size);
+    rotate_y = 1.5708;
+    material = BEAM;
+};
+
 let ridge = box {
     attach = host.middle + host.up * (wall_height + roof_height);
-    size = vec3(host.width + overhang * 2.0, 0.10, 0.10);
+    size = vec3(host.width + overhang * 2.0, beam_size, beam_size);
     material = BEAM;
 };
 
@@ -112,7 +249,8 @@ let roof_north_planks = planks {
     count = roof_plank_count;
     direction = horizontal;
     jitter = 0.45;
-    missing_chance = damage * 0.5;
+    unevenness = plank_unevenness;
+    missing_chance = missing_plank_percent * 0.0045;
     seed = seed * 3.0;
     rotate_x = roof_pitch;
     material = ROOF_PLANK;
@@ -124,15 +262,58 @@ let roof_south_planks = planks {
     count = roof_plank_count;
     direction = horizontal;
     jitter = 0.45;
-    missing_chance = damage * 0.5;
+    unevenness = plank_unevenness;
+    missing_chance = missing_plank_percent * 0.0045;
     seed = seed * 4.0;
     rotate_x = roof_pitch * -1.0;
     material = ROOF_PLANK;
 };
 
-slot material wall_mat = north_wall.center;
+let rafter_nw = box {
+    attach = host.middle + host.along * (host.width * -0.5) + host.up * wall_height + host.out * (host.depth * -0.5 - overhang);
+    size = vec3(beam_size, host.depth * 0.5 + overhang + roof_height * 0.25, beam_size);
+    rotate_x = roof_pitch;
+    material = BEAM;
+};
+
+let rafter_ne = box {
+    attach = host.middle + host.along * (host.width * 0.5) + host.up * wall_height + host.out * (host.depth * -0.5 - overhang);
+    size = vec3(beam_size, host.depth * 0.5 + overhang + roof_height * 0.25, beam_size);
+    rotate_x = roof_pitch;
+    material = BEAM;
+};
+
+let rafter_sw = box {
+    attach = host.middle + host.along * (host.width * -0.5) + host.up * wall_height + host.out * (host.depth * 0.5 + overhang);
+    size = vec3(beam_size, host.depth * 0.5 + overhang + roof_height * 0.25, beam_size);
+    rotate_x = roof_pitch * -1.0;
+    material = BEAM;
+};
+
+let rafter_se = box {
+    attach = host.middle + host.along * (host.width * 0.5) + host.up * wall_height + host.out * (host.depth * 0.5 + overhang);
+    size = vec3(beam_size, host.depth * 0.5 + overhang + roof_height * 0.25, beam_size);
+    rotate_x = roof_pitch * -1.0;
+    material = BEAM;
+};
+
+let rafter_mid_n = box {
+    attach = host.middle + host.up * wall_height + host.out * (host.depth * -0.5 - overhang);
+    size = vec3(beam_size, host.depth * 0.5 + overhang + roof_height * 0.25, beam_size);
+    rotate_x = roof_pitch;
+    material = BEAM;
+};
+
+let rafter_mid_s = box {
+    attach = host.middle + host.up * wall_height + host.out * (host.depth * 0.5 + overhang);
+    size = vec3(beam_size, host.depth * 0.5 + overhang + roof_height * 0.25, beam_size);
+    rotate_x = roof_pitch * -1.0;
+    material = BEAM;
+};
+
+slot material wall_mat = post_nw.center;
 slot material plank_mat = north_planks.center;
-slot material roof_mat = roof_north.center;
+slot material roof_mat = roof_north_planks.center;
 slot material beam_mat = ridge.center;
 
-output = [north_wall, south_wall, west_wall, east_wall, north_planks, south_planks, west_planks, east_planks, ridge, roof_north, roof_south, roof_north_planks, roof_south_planks];
+output = [post_nw, post_ne, post_sw, post_se, post_w_door_n, post_w_door_s, post_e_door_n, post_e_door_s, post_mid_n, post_mid_s, sill_n, sill_s, sill_w_n, sill_w_s, sill_e_n, sill_e_s, plate_n, plate_s, plate_w, plate_e, ridge, rafter_nw, rafter_ne, rafter_sw, rafter_se, rafter_mid_n, rafter_mid_s, north_planks, south_planks, west_north_planks, west_south_planks, east_north_planks, east_south_planks, roof_north_planks, roof_south_planks];
