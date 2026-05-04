@@ -2,8 +2,8 @@ name = "Farmhouse Skeleton";
 host = sector;
 
 param seed = 12.0;
-param wall_height = 1.6;
-param roof_height = 0.85;
+param wall_height = 2.5;
+param roof_pitch = 0.92;
 param plank_spacing = 0.28;
 param roof_plank_spacing = 0.16;
 param missing_plank_percent = 22.0;
@@ -14,7 +14,7 @@ param wall_panel_height = wall_height - beam_size;
 param end_opening_width = 0.95;
 param end_panel_width = (host.depth - end_opening_width) * 0.5;
 param roof_run = host.depth * 0.5 + overhang;
-param roof_pitch = atan(roof_run / roof_height);
+param roof_height = roof_run / tan(roof_pitch);
 param roof_slope_length = sqrt(roof_run * roof_run + roof_height * roof_height);
 param plank_count = host.width / plank_spacing;
 param end_plank_count = host.depth / plank_spacing;
@@ -23,7 +23,7 @@ param roof_plank_count = roof_slope_length / roof_plank_spacing;
 preview {
     width = 4.8;
     depth = 3.2;
-    height = 2.6;
+    height = 3.3;
 }
 
 let north_planks = planks {
