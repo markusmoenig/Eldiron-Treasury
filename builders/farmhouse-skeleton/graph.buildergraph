@@ -4,16 +4,21 @@ host = sector;
 param seed = 12.0;
 param wall_height = 1.6;
 param roof_height = 0.85;
-param plank_count = 18.0;
-param roof_plank_count = 16.0;
+param plank_spacing = 0.28;
+param roof_plank_spacing = 0.16;
 param missing_plank_percent = 22.0;
 param plank_unevenness = 0.85;
 param overhang = 0.18;
-param roof_pitch = 1.1;
 param beam_size = 0.10;
 param wall_panel_height = wall_height - beam_size;
 param end_opening_width = 0.95;
 param end_panel_width = (host.depth - end_opening_width) * 0.5;
+param roof_run = host.depth * 0.5 + overhang;
+param roof_pitch = atan(roof_height / roof_run);
+param roof_slope_length = sqrt(roof_run * roof_run + roof_height * roof_height);
+param plank_count = host.width / plank_spacing;
+param end_plank_count = host.depth / plank_spacing;
+param roof_plank_count = roof_slope_length / roof_plank_spacing;
 
 preview {
     width = 4.8;
@@ -48,7 +53,7 @@ let south_planks = planks {
 let west_north_planks = planks {
     attach = host.middle + host.up * beam_size + host.along * (host.width * -0.5 - 0.095) + host.out * (host.depth * -0.5 + end_panel_width * 0.5);
     size = vec3(end_panel_width, wall_panel_height, 0.035);
-    count = plank_count * 0.35;
+    count = end_plank_count * 0.35;
     direction = vertical;
     jitter = 0.0;
     unevenness = plank_unevenness;
@@ -61,7 +66,7 @@ let west_north_planks = planks {
 let west_south_planks = planks {
     attach = host.middle + host.up * beam_size + host.along * (host.width * -0.5 - 0.095) + host.out * (host.depth * 0.5 - end_panel_width * 0.5);
     size = vec3(end_panel_width, wall_panel_height, 0.035);
-    count = plank_count * 0.35;
+    count = end_plank_count * 0.35;
     direction = vertical;
     jitter = 0.0;
     unevenness = plank_unevenness;
@@ -74,7 +79,7 @@ let west_south_planks = planks {
 let east_north_planks = planks {
     attach = host.middle + host.up * beam_size + host.along * (host.width * 0.5 + 0.095) + host.out * (host.depth * -0.5 + end_panel_width * 0.5);
     size = vec3(end_panel_width, wall_panel_height, 0.035);
-    count = plank_count * 0.35;
+    count = end_plank_count * 0.35;
     direction = vertical;
     jitter = 0.0;
     unevenness = plank_unevenness;
@@ -87,7 +92,7 @@ let east_north_planks = planks {
 let east_south_planks = planks {
     attach = host.middle + host.up * beam_size + host.along * (host.width * 0.5 + 0.095) + host.out * (host.depth * 0.5 - end_panel_width * 0.5);
     size = vec3(end_panel_width, wall_panel_height, 0.035);
-    count = plank_count * 0.35;
+    count = end_plank_count * 0.35;
     direction = vertical;
     jitter = 0.0;
     unevenness = plank_unevenness;
@@ -231,21 +236,21 @@ let ridge = box {
 
 let roof_north = box {
     attach = host.middle + host.up * (wall_height) + host.out * (host.depth * -0.5 - overhang);
-    size = vec3(host.width + overhang * 2.0, host.depth * 0.5 + overhang + roof_height * 0.25, 0.08);
+    size = vec3(host.width + overhang * 2.0, roof_slope_length, 0.08);
     rotate_x = roof_pitch;
     material = ROOF;
 };
 
 let roof_south = box {
     attach = host.middle + host.up * (wall_height) + host.out * (host.depth * 0.5 + overhang);
-    size = vec3(host.width + overhang * 2.0, host.depth * 0.5 + overhang + roof_height * 0.25, 0.08);
+    size = vec3(host.width + overhang * 2.0, roof_slope_length, 0.08);
     rotate_x = roof_pitch * -1.0;
     material = ROOF;
 };
 
 let roof_north_planks = planks {
     attach = host.middle + host.up * (wall_height + 0.05) + host.out * (host.depth * -0.5 - overhang);
-    size = vec3(host.width + overhang * 2.0, host.depth * 0.5 + overhang + roof_height * 0.25, 0.035);
+    size = vec3(host.width + overhang * 2.0, roof_slope_length, 0.035);
     count = roof_plank_count;
     direction = horizontal;
     jitter = 0.45;
@@ -258,7 +263,7 @@ let roof_north_planks = planks {
 
 let roof_south_planks = planks {
     attach = host.middle + host.up * (wall_height + 0.05) + host.out * (host.depth * 0.5 + overhang);
-    size = vec3(host.width + overhang * 2.0, host.depth * 0.5 + overhang + roof_height * 0.25, 0.035);
+    size = vec3(host.width + overhang * 2.0, roof_slope_length, 0.035);
     count = roof_plank_count;
     direction = horizontal;
     jitter = 0.45;
@@ -271,42 +276,42 @@ let roof_south_planks = planks {
 
 let rafter_nw = box {
     attach = host.middle + host.along * (host.width * -0.5) + host.up * wall_height + host.out * (host.depth * -0.5 - overhang);
-    size = vec3(beam_size, host.depth * 0.5 + overhang + roof_height * 0.25, beam_size);
+    size = vec3(beam_size, roof_slope_length, beam_size);
     rotate_x = roof_pitch;
     material = BEAM;
 };
 
 let rafter_ne = box {
     attach = host.middle + host.along * (host.width * 0.5) + host.up * wall_height + host.out * (host.depth * -0.5 - overhang);
-    size = vec3(beam_size, host.depth * 0.5 + overhang + roof_height * 0.25, beam_size);
+    size = vec3(beam_size, roof_slope_length, beam_size);
     rotate_x = roof_pitch;
     material = BEAM;
 };
 
 let rafter_sw = box {
     attach = host.middle + host.along * (host.width * -0.5) + host.up * wall_height + host.out * (host.depth * 0.5 + overhang);
-    size = vec3(beam_size, host.depth * 0.5 + overhang + roof_height * 0.25, beam_size);
+    size = vec3(beam_size, roof_slope_length, beam_size);
     rotate_x = roof_pitch * -1.0;
     material = BEAM;
 };
 
 let rafter_se = box {
     attach = host.middle + host.along * (host.width * 0.5) + host.up * wall_height + host.out * (host.depth * 0.5 + overhang);
-    size = vec3(beam_size, host.depth * 0.5 + overhang + roof_height * 0.25, beam_size);
+    size = vec3(beam_size, roof_slope_length, beam_size);
     rotate_x = roof_pitch * -1.0;
     material = BEAM;
 };
 
 let rafter_mid_n = box {
     attach = host.middle + host.up * wall_height + host.out * (host.depth * -0.5 - overhang);
-    size = vec3(beam_size, host.depth * 0.5 + overhang + roof_height * 0.25, beam_size);
+    size = vec3(beam_size, roof_slope_length, beam_size);
     rotate_x = roof_pitch;
     material = BEAM;
 };
 
 let rafter_mid_s = box {
     attach = host.middle + host.up * wall_height + host.out * (host.depth * 0.5 + overhang);
-    size = vec3(beam_size, host.depth * 0.5 + overhang + roof_height * 0.25, beam_size);
+    size = vec3(beam_size, roof_slope_length, beam_size);
     rotate_x = roof_pitch * -1.0;
     material = BEAM;
 };
